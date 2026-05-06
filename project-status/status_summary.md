@@ -22,7 +22,7 @@ It should answer:
 
 Debrief has a locked v3.1 MVP specification, a milestone-based implementation plan, and a concrete Milestone 0 + 1 task backlog. The old `debrief1` repo was reviewed and is being treated as a prototype to learn from rather than the foundation to continue.
 
-The project is ready to begin a clean implementation focused first on architecture, session-backed AI settings, and the pre-analysis user flow. The local repo has been prepared for GitHub, but the GitHub remote has not been created yet because the saved GitHub CLI auth is invalid.
+The clean top-level codebase foundation is now in place and the Milestone 1 settings flow is implemented. The repo has been created on GitHub, the app now boots from server-backed session state, and the repo-input screen correctly blocks analysis until AI settings are configured.
 
 ---
 
@@ -33,9 +33,13 @@ The project is ready to begin a clean implementation focused first on architectu
 - turned Milestone 0 + 1 into a concrete engineering task list
 - decided on a clean restart instead of building on the prior prototype
 - prepared the top-level repo with a README and `.gitignore` for first push
+- scaffolded the new React + Express + shared-types foundation at the repo root
+- added a minimal session-backed server shell and Milestone 0 UI shell
+- implemented real save/clear settings endpoints and wired the Settings UI to them
+- added the Milestone 1 analysis guard on the repo-input screen
 
 ---
 
 ## Next Recommended Move
 
-Refresh GitHub CLI authentication, create the new remote repo, make the initial push, and then start Milestone 0.
+Start Milestone 2 by building GitHub URL parsing and exact repository target resolution.

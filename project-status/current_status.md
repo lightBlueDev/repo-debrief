@@ -18,8 +18,8 @@ Do not use this file for long-term project history. That belongs in `project_sta
 ## Last Updated
 
 - Date: 2026-05-06
-- Phase: Pre-build planning
-- Active milestone: Milestone 0 + Milestone 1
+- Phase: Early implementation
+- Active milestone: Milestone 2 prep
 
 ---
 
@@ -31,31 +31,37 @@ Do not use this file for long-term project history. That belongs in `project_sta
 - clean restart is planned instead of extending `debrief1`
 - top-level repo has been prepared for first GitHub push
 - old `debrief1` prototype is excluded from the new repo by `.gitignore`
+- Milestone 0 scaffold has been implemented at the top level
+- top-level app now has client, server, and shared source boundaries
+- build, typecheck, and lint are passing on the new scaffold
+- Milestone 1 settings endpoints and session-backed UI flow are implemented
+- repo input now enforces the “Settings required before analysis” rule
 
 ---
 
 ## Active Focus
 
 - prepare the clean codebase foundation
-- establish frontend/backend/shared boundaries
-- implement session-backed AI settings flow
+- prepare Milestone 2 GitHub target resolution
+- keep the current settings/session contract stable for later pipeline work
 
 ---
 
 ## Immediate Next Steps
 
-1. Re-authenticate GitHub CLI and create the remote repo
-2. Make the initial commit and first push
-3. Scaffold the new project structure for Milestone 0
+1. Start Milestone 2 GitHub repository target parsing
+2. Implement exact root-repo and subdirectory URL resolution
+3. Prepare the deterministic ingestion foundation
 
 ---
 
 ## Open Questions
 
 - whether the GitHub repo should be public or private at initial creation
+- whether to split Milestone 2 into separate URL-resolution and snapshot-fetch sub-steps
 
 ---
 
 ## Blockers
 
-- GitHub CLI authentication for `lightBlueDev` is currently invalid, so remote creation and push are blocked until re-authenticated
+- none right now

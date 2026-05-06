@@ -18,7 +18,7 @@ Do not use this file for minute-to-minute task tracking. That belongs in `curren
 ## Last Updated
 
 - Date: 2026-05-06
-- Overall status: Planning complete, local repo prepared, GitHub remote not yet created
+- Overall status: Milestone 0 and Milestone 1 implemented, Milestone 2 ready to begin
 
 ---
 
@@ -50,8 +50,8 @@ Do not use this file for minute-to-minute task tracking. That belongs in `curren
 
 | Milestone | Status | Notes |
 | --- | --- | --- |
-| Milestone 0 — Foundation | Ready to start | Task list prepared |
-| Milestone 1 — Settings and session flow | Ready to start | Task list prepared |
+| Milestone 0 — Foundation | Implemented | Client/server/shared scaffold, tooling, shared schemas, session shell, and app shell are in place |
+| Milestone 1 — Settings and session flow | Implemented | Real settings endpoints, session-backed save/clear flow, app bootstrap, and repo-input guard are in place |
 | Milestone 2 — GitHub target resolution | Planned | Starts after M0 + M1 |
 | Milestone 3 — Deterministic ingestion | Planned | Depends on M2 |
 | Milestone 4 — Provider abstraction | Planned | Depends on M3 |
@@ -68,6 +68,8 @@ Do not use this file for minute-to-minute task tracking. That belongs in `curren
 - Implementation plan: [debrief-v3.1-implementation-plan.md](/Users/emapro/Documents/New%20project%202/debrief-v3.1-implementation-plan.md)
 - Milestone 0 + 1 tasks: [debrief-m0-m1-task-list.md](/Users/emapro/Documents/New%20project%202/debrief-m0-m1-task-list.md)
 - Repo setup files: [README.md](/Users/emapro/Documents/New%20project%202/README.md) and [.gitignore](/Users/emapro/Documents/New%20project%202/.gitignore)
+- App scaffold: [package.json](/Users/emapro/Documents/New%20project%202/package.json) and [src](/Users/emapro/Documents/New%20project%202/src)
+- Settings flow: [src/server/routes/settings.ts](/Users/emapro/Documents/New%20project%202/src/server/routes/settings.ts) and [src/client/routes/SettingsScreen.tsx](/Users/emapro/Documents/New%20project%202/src/client/routes/SettingsScreen.tsx)
 
 ---
 
@@ -77,7 +79,7 @@ Do not use this file for minute-to-minute task tracking. That belongs in `curren
 - mixing provider logic into UI code would recreate the prototype’s drift
 - weak session handling would create security regressions early
 - skipping GitHub target resolution details would create downstream pipeline instability
-- GitHub remote creation is blocked until local GitHub CLI auth is refreshed
+- drifting into AI generation before Milestone 1 and 2 are complete would create rework
 
 ---
 

@@ -6,12 +6,13 @@ This repository contains the planning and implementation work for Debrief, a web
 
 ## Current State
 
-The project is in pre-build setup. The current repo contains:
+The project has entered Milestone 0 scaffolding. The current repo contains:
 
 - the tightened v3.1 product specification
 - the milestone-based implementation plan
 - the Milestone 0 + 1 engineering task list
 - lightweight project status tracking docs
+- the initial client/server/shared codebase foundation
 
 ## Key Docs
 
@@ -28,3 +29,11 @@ The project is in pre-build setup. The current repo contains:
 - support for repo and subdirectory GitHub URLs
 - progressive four-tab results experience
 
+## Run Locally
+
+1. Install dependencies:
+   `npm install`
+2. Copy environment defaults if needed:
+   `cp .env.example .env`
+3. Start the app:
+   `npm run dev`

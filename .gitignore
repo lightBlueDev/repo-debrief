@@ -4,6 +4,7 @@ dist/
 coverage/
 .env
 .env.*
+!.env.example
 
 # Keep the old prototype local unless we explicitly archive it later.
 debrief1/
