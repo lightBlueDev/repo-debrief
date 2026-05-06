@@ -28,6 +28,8 @@ Do not use this file for long-term project history. That belongs in `project_sta
 - v3.1 product spec has been tightened and saved
 - milestone-based implementation plan has been written
 - Milestone 0 + 1 engineering task list has been written
+- Milestone 2 task list has been written
+- Milestone 3 outline has been written
 - clean restart is planned instead of extending `debrief1`
 - top-level repo has been prepared for first GitHub push
 - old `debrief1` prototype is excluded from the new repo by `.gitignore`

@@ -67,6 +67,8 @@ Do not use this file for minute-to-minute task tracking. That belongs in `curren
 - Spec: [debrief-v3.1-spec.md](/Users/emapro/Documents/New%20project%202/debrief-v3.1-spec.md)
 - Implementation plan: [debrief-v3.1-implementation-plan.md](/Users/emapro/Documents/New%20project%202/debrief-v3.1-implementation-plan.md)
 - Milestone 0 + 1 tasks: [debrief-m0-m1-task-list.md](/Users/emapro/Documents/New%20project%202/debrief-m0-m1-task-list.md)
+- Milestone 2 tasks: [debrief-m2-task-list.md](/Users/emapro/Documents/New%20project%202/debrief-m2-task-list.md)
+- Milestone 3 outline: [debrief-m3-outline.md](/Users/emapro/Documents/New%20project%202/debrief-m3-outline.md)
 - Repo setup files: [README.md](/Users/emapro/Documents/New%20project%202/README.md) and [.gitignore](/Users/emapro/Documents/New%20project%202/.gitignore)
 - App scaffold: [package.json](/Users/emapro/Documents/New%20project%202/package.json) and [src](/Users/emapro/Documents/New%20project%202/src)
 - Settings flow: [src/server/routes/settings.ts](/Users/emapro/Documents/New%20project%202/src/server/routes/settings.ts) and [src/client/routes/SettingsScreen.tsx](/Users/emapro/Documents/New%20project%202/src/client/routes/SettingsScreen.tsx)

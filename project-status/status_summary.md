@@ -37,6 +37,8 @@ The clean top-level codebase foundation is now in place and the Milestone 1 sett
 - added a minimal session-backed server shell and Milestone 0 UI shell
 - implemented real save/clear settings endpoints and wired the Settings UI to them
 - added the Milestone 1 analysis guard on the repo-input screen
+- wrote the concrete Milestone 2 engineering task list
+- wrote the lighter Milestone 3 outline to guide the next planning slice
 
 ---
 
