@@ -45,7 +45,7 @@ test("resolves a root repository target using the default branch", async () => {
       "https://api.github.com/repos/lightBlueDev/repo-debrief/commits/main",
       {
         status: 200,
-        body: { sha: "abc123" }
+        body: { sha: "abc123", commit: { tree: { sha: "tree123" } } }
       }
     ]
   ]);
@@ -88,7 +88,7 @@ test("resolves a subdirectory target with an unambiguous ref", async () => {
     ],
     [
       "https://api.github.com/repos/lightBlueDev/repo-debrief/commits/main",
-      { status: 200, body: { sha: "def456" } }
+      { status: 200, body: { sha: "def456", commit: { tree: { sha: "tree456" } } } }
     ]
   ]);
 
@@ -129,7 +129,7 @@ test("resolves a subdirectory target where the ref contains slashes", async () =
     ],
     [
       "https://api.github.com/repos/lightBlueDev/repo-debrief/commits/feature%2Fui",
-      { status: 200, body: { sha: "ghi789" } }
+      { status: 200, body: { sha: "ghi789", commit: { tree: { sha: "tree789" } } } }
     ]
   ]);
 

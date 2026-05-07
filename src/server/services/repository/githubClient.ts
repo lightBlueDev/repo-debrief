@@ -7,9 +7,21 @@ export type GitHubRepositoryMetadata = {
   visibility: "public" | "private";
 };
 
+export type GitHubCommitDetails = {
+  commitSha: string;
+  treeSha: string;
+};
+
+export type GitHubTreeEntry = {
+  path: string;
+  type: "blob" | "tree" | "commit";
+  size?: number;
+};
+
 export type GitHubRepositoryClient = {
   getRepositoryMetadata(parsedUrl: ParsedGitHubUrl): Promise<GitHubRepositoryMetadata>;
   resolveCommitSha(parsedUrl: ParsedGitHubUrl, ref: string): Promise<string>;
+  getCommitDetails(parsedUrl: ParsedGitHubUrl, ref: string): Promise<GitHubCommitDetails>;
   refExists(
     parsedUrl: ParsedGitHubUrl,
     ref: string,
@@ -20,6 +32,15 @@ export type GitHubRepositoryClient = {
     subpath: string,
     ref: string
   ): Promise<boolean>;
+  listTreeEntries(
+    parsedUrl: ParsedGitHubUrl,
+    treeSha: string
+  ): Promise<GitHubTreeEntry[]>;
+  getFileContent(
+    parsedUrl: ParsedGitHubUrl,
+    path: string,
+    ref: string
+  ): Promise<string>;
 };
 
 type CreateGitHubClientOptions = {
@@ -104,6 +125,11 @@ export function createGitHubClient({
     },
 
     async resolveCommitSha(parsedUrl, ref) {
+      const details = await this.getCommitDetails(parsedUrl, ref);
+      return details.commitSha;
+    },
+
+    async getCommitDetails(parsedUrl, ref) {
       const response = await request(
         `${getRepoApiBase(parsedUrl)}/commits/${encodeURIComponent(ref)}`,
         { headers }
@@ -117,16 +143,26 @@ export function createGitHubClient({
         throw new Error("GitHub could not resolve the requested commit.");
       }
 
-      const payload = await readJsonOrThrow<{ sha?: string }>(
+      const payload = await readJsonOrThrow<{
+        sha?: string;
+        commit?: {
+          tree?: {
+            sha?: string;
+          };
+        };
+      }>(
         response,
         "GitHub returned invalid commit data."
       );
 
-      if (!payload.sha) {
-        throw new Error("GitHub returned a commit response without a SHA.");
+      if (!payload.sha || !payload.commit?.tree?.sha) {
+        throw new Error("GitHub returned commit data without the required tree details.");
       }
 
-      return payload.sha;
+      return {
+        commitSha: payload.sha,
+        treeSha: payload.commit.tree.sha
+      };
     },
 
     async refExists(parsedUrl, ref, type) {
@@ -167,6 +203,65 @@ export function createGitHubClient({
       }
 
       return true;
+    },
+
+    async listTreeEntries(parsedUrl, treeSha) {
+      const response = await request(
+        `${getRepoApiBase(parsedUrl)}/git/trees/${encodeURIComponent(treeSha)}?recursive=1`,
+        { headers }
+      );
+
+      if (!response.ok) {
+        throw new Error("GitHub could not read the repository tree for this target.");
+      }
+
+      const payload = await readJsonOrThrow<{
+        tree?: Array<{
+          path?: string;
+          type?: "blob" | "tree" | "commit";
+          size?: number;
+        }>;
+      }>(response, "GitHub returned invalid repository tree data.");
+
+      return (payload.tree ?? [])
+        .filter((entry): entry is { path: string; type: "blob" | "tree" | "commit"; size?: number } =>
+          Boolean(entry.path && entry.type)
+        )
+        .map((entry) => ({
+          path: entry.path,
+          type: entry.type,
+          size: entry.size
+        }));
+    },
+
+    async getFileContent(parsedUrl, path, ref) {
+      const response = await request(
+        `${getRepoApiBase(parsedUrl)}/contents/${path
+          .split("/")
+          .map(encodeURIComponent)
+          .join("/")}?ref=${encodeURIComponent(ref)}`,
+        { headers }
+      );
+
+      if (!response.ok) {
+        throw new Error(`GitHub could not read the file contents for ${path}.`);
+      }
+
+      const payload = await readJsonOrThrow<{
+        type?: string;
+        encoding?: string;
+        content?: string;
+      }>(response, "GitHub returned invalid file content data.");
+
+      if (payload.type !== "file" || !payload.content) {
+        throw new Error(`GitHub did not return readable file contents for ${path}.`);
+      }
+
+      if (payload.encoding === "base64") {
+        return Buffer.from(payload.content.replace(/\n/g, ""), "base64").toString("utf8");
+      }
+
+      return payload.content;
     }
   };
 }

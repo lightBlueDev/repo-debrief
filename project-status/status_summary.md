@@ -30,6 +30,8 @@ The backend target-resolution slice now goes further than that: the auth-aware G
 
 That UI call is now wired too. The repo input screen can resolve supported GitHub URLs, show loading and inline errors, and display the exact resolved repo/ref/path/commit target that later ingestion will use.
 
+Milestone 3 has also begun. The repo now has shared ingestion schemas plus a deterministic snapshot fetcher that can turn a resolved target into scoped raw files with stable relative paths.
+
 ---
 
 ## Most Recent Changes
@@ -50,6 +52,7 @@ That UI call is now wired too. The repo input screen can resolve supported GitHu
 - implemented and tested the auth-aware GitHub client
 - implemented the repository resolution service and route
 - wired the repo input screen to the live repository resolution route
+- implemented the first deterministic ingestion foundation for Milestone 3
 
 ---
 

@@ -35,6 +35,7 @@ Do not use this file for long-term project history. That belongs in `project_sta
 - M2-T5 auth-aware GitHub client is implemented
 - M2-T6 repository resolution API route is implemented
 - M2-T7 repo input screen is wired to live repository resolution
+- Milestone 3 has started with shared ingestion contracts and a deterministic snapshot fetcher
 - clean restart is planned instead of extending `debrief1`
 - top-level repo has been prepared for first GitHub push
 - old `debrief1` prototype is excluded from the new repo by `.gitignore`
@@ -56,9 +57,9 @@ Do not use this file for long-term project history. That belongs in `project_sta
 
 ## Immediate Next Steps
 
-1. Decide whether to close Milestone 2 and commit the full slice
-2. Start Milestone 3 deterministic ingestion planning and implementation
-3. Reuse the resolved target object as the entrypoint into cleaning and manifest work
+1. Add cleaning and exclusion rules on top of the new snapshot fetcher
+2. Add file classification and token estimation
+3. Start building the deterministic metadata manifest from the fetched snapshot
 
 ---
 

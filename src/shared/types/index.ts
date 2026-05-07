@@ -5,6 +5,11 @@ import type {
   ProviderModelOption
 } from "../constants/providers";
 import type {
+  repositoryMetadataManifestSchema,
+  repositorySnapshotFileSchema,
+  repositorySnapshotSchema
+} from "../schemas/ingestion";
+import type {
   parsedGitHubTreeUrlSchema,
   parsedGitHubUrlSchema,
   repositoryUrlInputSchema,
@@ -29,3 +34,8 @@ export type RepositoryUrlInput = z.infer<typeof repositoryUrlInputSchema>;
 export type ParsedGitHubUrl = z.infer<typeof parsedGitHubUrlSchema>;
 export type ParsedGitHubTreeUrl = z.infer<typeof parsedGitHubTreeUrlSchema>;
 export type ResolvedRepositoryTarget = z.infer<typeof resolvedRepositoryTargetSchema>;
+export type RepositorySnapshotFile = z.infer<typeof repositorySnapshotFileSchema>;
+export type RepositorySnapshot = z.infer<typeof repositorySnapshotSchema>;
+export type RepositoryMetadataManifest = z.infer<
+  typeof repositoryMetadataManifestSchema
+>;
