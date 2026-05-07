@@ -5,6 +5,7 @@ import type { PublicSessionState, SavedSessionAiConfig } from "../../shared/type
 declare module "express-session" {
   interface SessionData {
     aiConfig?: SavedSessionAiConfig;
+    githubToken?: string;
     github?: {
       connected: boolean;
       username: string | null;

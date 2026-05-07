@@ -24,6 +24,12 @@ Debrief has a locked v3.1 MVP specification, a milestone-based implementation pl
 
 The clean top-level codebase foundation is now in place and the Milestone 1 settings flow is implemented. The repo has been created on GitHub, the app now boots from server-backed session state, and the repo-input screen correctly blocks analysis until AI settings are configured.
 
+Milestone 2 is now underway: the shared repository-target contract is in place, and the GitHub URL parser is implemented with passing fixture-style tests.
+
+The backend target-resolution slice now goes further than that: the auth-aware GitHub client exists, the repository resolver can resolve root and subdirectory targets, and a `/api/repository/resolve` route is in place for the UI to call next.
+
+That UI call is now wired too. The repo input screen can resolve supported GitHub URLs, show loading and inline errors, and display the exact resolved repo/ref/path/commit target that later ingestion will use.
+
 ---
 
 ## Most Recent Changes
@@ -39,6 +45,11 @@ The clean top-level codebase foundation is now in place and the Milestone 1 sett
 - added the Milestone 1 analysis guard on the repo-input screen
 - wrote the concrete Milestone 2 engineering task list
 - wrote the lighter Milestone 3 outline to guide the next planning slice
+- implemented the shared repository-target schemas and types
+- implemented and tested the first-pass GitHub URL parser
+- implemented and tested the auth-aware GitHub client
+- implemented the repository resolution service and route
+- wired the repo input screen to the live repository resolution route
 
 ---
 

@@ -52,7 +52,7 @@ Do not use this file for minute-to-minute task tracking. That belongs in `curren
 | --- | --- | --- |
 | Milestone 0 — Foundation | Implemented | Client/server/shared scaffold, tooling, shared schemas, session shell, and app shell are in place |
 | Milestone 1 — Settings and session flow | Implemented | Real settings endpoints, session-backed save/clear flow, app bootstrap, and repo-input guard are in place |
-| Milestone 2 — GitHub target resolution | Planned | Starts after M0 + M1 |
+| Milestone 2 — GitHub target resolution | Implemented | Shared target contract, parser, resolver, auth-aware GitHub client, repository resolve route, and repo-input wiring are in place |
 | Milestone 3 — Deterministic ingestion | Planned | Depends on M2 |
 | Milestone 4 — Provider abstraction | Planned | Depends on M3 |
 | Milestone 5 — Canonical JSON | Planned | Depends on M4 |
@@ -72,6 +72,8 @@ Do not use this file for minute-to-minute task tracking. That belongs in `curren
 - Repo setup files: [README.md](/Users/emapro/Documents/New%20project%202/README.md) and [.gitignore](/Users/emapro/Documents/New%20project%202/.gitignore)
 - App scaffold: [package.json](/Users/emapro/Documents/New%20project%202/package.json) and [src](/Users/emapro/Documents/New%20project%202/src)
 - Settings flow: [src/server/routes/settings.ts](/Users/emapro/Documents/New%20project%202/src/server/routes/settings.ts) and [src/client/routes/SettingsScreen.tsx](/Users/emapro/Documents/New%20project%202/src/client/routes/SettingsScreen.tsx)
+- Repository parsing: [src/shared/schemas/repository.ts](/Users/emapro/Documents/New%20project%202/src/shared/schemas/repository.ts) and [src/server/services/repository/parseGitHubUrl.ts](/Users/emapro/Documents/New%20project%202/src/server/services/repository/parseGitHubUrl.ts)
+- Repository resolution: [src/server/services/repository/githubClient.ts](/Users/emapro/Documents/New%20project%202/src/server/services/repository/githubClient.ts), [src/server/services/repository/resolveRepositoryTarget.ts](/Users/emapro/Documents/New%20project%202/src/server/services/repository/resolveRepositoryTarget.ts), and [src/server/routes/repository.ts](/Users/emapro/Documents/New%20project%202/src/server/routes/repository.ts)
 
 ---
 

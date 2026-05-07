@@ -8,6 +8,7 @@
     "build": "vite build",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint .",
+    "test": "node --import tsx --test src/server/services/repository/*.test.ts",
     "start": "NODE_ENV=production node --import tsx src/server/app/index.ts"
   },
   "dependencies": {

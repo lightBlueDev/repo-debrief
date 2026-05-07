@@ -5,6 +5,12 @@ import type {
   ProviderModelOption
 } from "../constants/providers";
 import type {
+  parsedGitHubTreeUrlSchema,
+  parsedGitHubUrlSchema,
+  repositoryUrlInputSchema,
+  resolvedRepositoryTargetSchema
+} from "../schemas/repository";
+import type {
   apiErrorSchema,
   publicSessionStateSchema,
   savedSessionAiConfigSchema,
@@ -19,7 +25,7 @@ export type SettingsFormInput = z.infer<typeof settingsFormInputSchema>;
 export type SavedSessionAiConfig = z.infer<typeof savedSessionAiConfigSchema>;
 export type PublicSessionState = z.infer<typeof publicSessionStateSchema>;
 export type ApiError = z.infer<typeof apiErrorSchema>;
-
-export type RepositoryTargetDraft = {
-  repoUrl: string;
-};
+export type RepositoryUrlInput = z.infer<typeof repositoryUrlInputSchema>;
+export type ParsedGitHubUrl = z.infer<typeof parsedGitHubUrlSchema>;
+export type ParsedGitHubTreeUrl = z.infer<typeof parsedGitHubTreeUrlSchema>;
+export type ResolvedRepositoryTarget = z.infer<typeof resolvedRepositoryTargetSchema>;

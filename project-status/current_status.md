@@ -30,6 +30,11 @@ Do not use this file for long-term project history. That belongs in `project_sta
 - Milestone 0 + 1 engineering task list has been written
 - Milestone 2 task list has been written
 - Milestone 3 outline has been written
+- M2-T1 shared repository target types and schemas are implemented
+- M2-T2 GitHub URL parser and parser tests are implemented
+- M2-T5 auth-aware GitHub client is implemented
+- M2-T6 repository resolution API route is implemented
+- M2-T7 repo input screen is wired to live repository resolution
 - clean restart is planned instead of extending `debrief1`
 - top-level repo has been prepared for first GitHub push
 - old `debrief1` prototype is excluded from the new repo by `.gitignore`
@@ -51,9 +56,9 @@ Do not use this file for long-term project history. That belongs in `project_sta
 
 ## Immediate Next Steps
 
-1. Start Milestone 2 GitHub repository target parsing
-2. Implement exact root-repo and subdirectory URL resolution
-3. Prepare the deterministic ingestion foundation
+1. Decide whether to close Milestone 2 and commit the full slice
+2. Start Milestone 3 deterministic ingestion planning and implementation
+3. Reuse the resolved target object as the entrypoint into cleaning and manifest work
 
 ---
 

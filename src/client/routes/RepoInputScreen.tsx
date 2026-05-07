@@ -1,11 +1,12 @@
 import { useState, type FormEvent } from "react";
 
 import { getProviderDefinition } from "../../shared/constants/providers";
-import type { PublicSessionState } from "../../shared/types";
+import type { PublicSessionState, ResolvedRepositoryTarget } from "../../shared/types";
 
 import { InfoPanel } from "../components/InfoPanel";
 import { ShellButton } from "../components/ShellButton";
 import { StatusBadge } from "../components/StatusBadge";
+import { resolveRepositoryTarget } from "../lib/api";
 
 type RepoInputScreenProps = {
   sessionState: PublicSessionState;
@@ -20,14 +21,18 @@ export function RepoInputScreen({
 }: RepoInputScreenProps) {
   const [repoUrl, setRepoUrl] = useState("");
   const [message, setMessage] = useState<string | null>(null);
+  const [resolvedTarget, setResolvedTarget] = useState<ResolvedRepositoryTarget | null>(null);
+  const [resolving, setResolving] = useState(false);
   const providerLabel = sessionState.ai.provider
     ? getProviderDefinition(sessionState.ai.provider).label
     : "No provider yet";
   const modelLabel = sessionState.ai.model ?? "No model yet";
   const canAnalyze = sessionState.ai.apiKeyConfigured && Boolean(sessionState.ai.model);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setMessage(null);
+    setResolvedTarget(null);
 
     if (!canAnalyze) {
       setMessage(
@@ -41,9 +46,23 @@ export function RepoInputScreen({
       return;
     }
 
-    setMessage(
-      "Settings check passed. Repository target resolution and ingestion begin in Milestone 2."
-    );
+    setResolving(true);
+
+    try {
+      const target = await resolveRepositoryTarget({ repoUrl });
+      setResolvedTarget(target);
+      setMessage(
+        "Repository target resolved. This is the exact repo/ref/path scope the deterministic ingestion pipeline will use next."
+      );
+    } catch (resolveError) {
+      setMessage(
+        resolveError instanceof Error
+          ? resolveError.message
+          : "We couldn't resolve that repository target."
+      );
+    } finally {
+      setResolving(false);
+    }
   }
 
   return (
@@ -64,6 +83,7 @@ export function RepoInputScreen({
               placeholder="https://github.com/owner/repo"
               value={repoUrl}
               onChange={(event) => setRepoUrl(event.target.value)}
+              disabled={resolving}
             />
           </label>
 
@@ -73,9 +93,36 @@ export function RepoInputScreen({
           </div>
 
           {message ? (
-            <p className={canAnalyze ? "success-text" : "inline-error settings-error"}>
+            <p
+              className={
+                resolvedTarget ? "success-text" : "inline-error settings-error"
+              }
+            >
               {message}
             </p>
+          ) : null}
+
+          {resolvedTarget ? (
+            <div className="resolved-target-card">
+              <div className="resolved-target-grid">
+                <div>
+                  <span className="resolved-target-label">Repository</span>
+                  <strong>{resolvedTarget.owner}/{resolvedTarget.repo}</strong>
+                </div>
+                <div>
+                  <span className="resolved-target-label">Ref</span>
+                  <strong>{resolvedTarget.ref}</strong>
+                </div>
+                <div>
+                  <span className="resolved-target-label">Subpath</span>
+                  <strong>{resolvedTarget.subpath ?? "Entire repository"}</strong>
+                </div>
+                <div>
+                  <span className="resolved-target-label">Commit</span>
+                  <strong>{resolvedTarget.commitSha}</strong>
+                </div>
+              </div>
+            </div>
           ) : null}
 
           <div className="panel-actions">
@@ -87,14 +134,20 @@ export function RepoInputScreen({
                 Go to Settings
               </ShellButton>
             ) : null}
-            <ShellButton type="submit">Debrief This Repo</ShellButton>
+            <ShellButton type="submit" disabled={resolving}>
+              {resolving ? "Resolving..." : "Debrief This Repo"}
+            </ShellButton>
           </div>
         </form>
       </InfoPanel>
 
-      <InfoPanel eyebrow="Session State" title="Current Non-Secret State" tone="navy">
+      <InfoPanel
+        eyebrow="Resolution State"
+        title={resolvedTarget ? "Resolved Repository Target" : "Current Non-Secret State"}
+        tone="navy"
+      >
         <pre className="state-preview">
-          {JSON.stringify(sessionState, null, 2)}
+          {JSON.stringify(resolvedTarget ?? sessionState, null, 2)}
         </pre>
       </InfoPanel>
     </div>

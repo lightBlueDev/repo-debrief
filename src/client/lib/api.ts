@@ -1,8 +1,18 @@
-import type { PublicSessionState, SettingsFormInput } from "../../shared/types";
+import type {
+  PublicSessionState,
+  RepositoryUrlInput,
+  ResolvedRepositoryTarget,
+  SettingsFormInput
+} from "../../shared/types";
 
 type SessionResponse = {
   success: true;
   data: PublicSessionState;
+};
+
+type RepositoryResolveResponse = {
+  success: true;
+  data: ResolvedRepositoryTarget;
 };
 
 type ApiErrorResponse = {
@@ -22,6 +32,28 @@ async function parseResponse(response: Response): Promise<PublicSessionState> {
 
   if (!("data" in payload)) {
     throw new Error("Response payload was missing session data.");
+  }
+
+  return payload.data;
+}
+
+async function parseRepositoryResolveResponse(
+  response: Response
+): Promise<ResolvedRepositoryTarget> {
+  const payload = (await response.json()) as
+    | RepositoryResolveResponse
+    | ApiErrorResponse;
+
+  if (!response.ok) {
+    if ("error" in payload) {
+      throw new Error(payload.error);
+    }
+
+    throw new Error("Failed to resolve the repository target.");
+  }
+
+  if (!("data" in payload)) {
+    throw new Error("Response payload was missing repository target data.");
   }
 
   return payload.data;
@@ -59,4 +91,18 @@ export async function clearAiSettings(): Promise<PublicSessionState> {
   });
 
   return parseResponse(response);
+}
+
+export async function resolveRepositoryTarget(
+  input: RepositoryUrlInput
+): Promise<ResolvedRepositoryTarget> {
+  const response = await fetch("/api/repository/resolve", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(input)
+  });
+
+  return parseRepositoryResolveResponse(response);
 }

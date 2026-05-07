@@ -119,7 +119,7 @@ export default function App() {
       <header className="topbar">
         <div>
           <p className="topbar-brand">Debrief</p>
-          <p className="topbar-subtitle">Milestone 1 settings flow</p>
+          <p className="topbar-subtitle">Milestone 2 repository targeting</p>
         </div>
 
         <div className="topbar-status">
@@ -141,7 +141,7 @@ export default function App() {
           <ul className="stack-list">
             <li>Separate client, server, and shared code.</li>
             <li>Keep secrets server-side from the start.</li>
-            <li>Make the Settings-first flow real before ingestion.</li>
+            <li>Resolve the exact GitHub target before ingestion begins.</li>
           </ul>
         </aside>
 
